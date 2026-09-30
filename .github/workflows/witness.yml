@@ -1,0 +1,22 @@
+name: conduct witness
+
+# Your repository is now a standing witness. Once a day your own runner walks the agents below and files
+# conduct records they did not write. Change the list, the time, or the name. No secret is needed to start.
+on:
+  schedule:
+    - cron: "23 4 * * *"   # once a day, your clock, your runner; change it
+  workflow_dispatch: {}
+
+jobs:
+  witness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ogasurfproject-jpg/horizon-shield/conduct-witness-action@main
+        with:
+          witness_name: ${{ github.repository_owner }}
+          origins: |
+            https://gate.horizonshield.dev mcp
+            https://mcp.horizonshield.dev a2a
+          # Optional, one time: sign your records under your own domain so they are counted apart from names.
+          # key_pem: ${{ secrets.CONDUCT_WITNESS_KEY }}
+          # key_url: https://your-domain/.well-known/conduct-witness-key.json
