@@ -91,6 +91,7 @@ KEY_URL="${PAGES%/}/conduct-witness-key.json"
 gh variable set CONDUCT_WITNESS_KEY_URL -R "$REPO" --body "$KEY_URL"
 echo "4/5 the public key goes to $KEY_URL (repository variable CONDUCT_WITNESS_KEY_URL)"
 
+echo "    waiting for GitHub Pages to publish the key; the first publish takes one to three minutes"
 WANT=$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["public_key_ed25519_b64"])' "$WORK/pub.json")
 for i in $(seq 1 60); do
   GOT=$(curl -fsS "$KEY_URL" 2>/dev/null | python3 -c 'import json,sys;print(json.load(sys.stdin).get("public_key_ed25519_b64",""))' 2>/dev/null || true)
