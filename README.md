@@ -32,6 +32,10 @@ The point of a receipt is where it was made. One from the operator's own machine
 
 If you run a public A2A agent on your own domain, declare `witness_policy: { reciprocal: true }` in its card's conduct extension ([how](https://github.com/ogasurfproject-jpg/horizon-shield/blob/main/workers/hs-ledger/nenrin/recovery-v0/BECOME_A_WITNESS.md)). Walkers whose own card asks for it are put on the public register and measured back. Nobody is listed without their card saying so, and `listing: decline` in `/.well-known/mcp-conduct.json` stops it at any time.
 
+## Credit
+
+Your signed records can be credited by name in the NENRIN citation metadata (the Zenodo DOI record and CITATION.cff), only if you ask for it and under the name you choose: [WITNESSES.md](https://github.com/ogasurfproject-jpg/horizon-shield/blob/main/workers/hs-ledger/nenrin/WITNESSES.md).
+
 ## What this does not claim
 
 Walking an agent is not endorsing it, and being walked is not a trust badge. A record says what your runner saw, from where, and when. A signature under `<you>.github.io` says which GitHub account signed, not that the account is independent of anyone; a GitHub account is cheap, and the ledger caps records per domain for that reason. If what you saw disagrees with someone else, both are kept.
