@@ -9,7 +9,7 @@
 #   3. stores the private key as the repository secret CONDUCT_WITNESS_KEY; the file is deleted when this script ends
 #   4. publishes the public key with GitHub Pages at https://<you>.github.io/<repo-name>/conduct-witness-key.json
 #      and stores that URL as the repository variable CONDUCT_WITNESS_KEY_URL
-#   5. waits until the key is served, then starts both workflows once (NO_RUN=1 skips this)
+#   5. waits until the key is served, then starts the workflows once (NO_RUN=1 skips this)
 # From then on your records are signed and counted under <you>.github.io instead of under a name anybody can type.
 # Run it again to rotate the key. Nothing is sent to HORIZON SHIELD by this script; your runner files the records.
 set -euo pipefail
@@ -107,7 +107,8 @@ if [ -n "${NO_RUN:-}" ]; then
 else
   gh workflow run witness.yml -R "$REPO"
   gh workflow run reproduce.yml -R "$REPO" 2>/dev/null || true
-  echo "5/5 the key is served; both workflows started"
+  gh workflow run claims.yml -R "$REPO" 2>/dev/null || true
+  echo "5/5 the key is served; the workflows started"
 fi
 echo
 echo "watch:  gh run list -R $REPO --limit 4"

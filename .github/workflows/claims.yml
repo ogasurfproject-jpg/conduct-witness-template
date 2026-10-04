@@ -1,0 +1,44 @@
+name: price claims
+
+# Once a week your runner recomputes HORIZON SHIELD's published renovation price claims (claims.py: dataset hash,
+# ledger entry, claim object hashes, values against the dataset, figures on the pages) and publishes the result on
+# your GitHub Pages address under /claims/, with receipt.json attested by GitHub under your repository's identity.
+# A mismatch is published as a mismatch.
+on:
+  schedule:
+    - cron: "17 6 * * 1"   # Mondays; change it
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  id-token: write
+  attestations: write
+
+jobs:
+  claims:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+      - name: recompute
+        id: run
+        continue-on-error: true
+        run: python3 claims.py
+      - name: attest the receipt (GitHub signs it under this repository's identity)
+        if: always() && hashFiles('docs/claims/receipt.json') != ''
+        uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
+        with:
+          subject-path: docs/claims/receipt.json
+      - name: publish on GitHub Pages (match or mismatch)
+        if: always() && hashFiles('docs/claims/receipt.json') != ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/claims/receipt.json docs/claims/index.html
+          git diff --cached --quiet || git commit -q -m "claims: recomputed $(date -u +%Y-%m-%d)"
+          git push -q origin HEAD
+      - name: fail the run on a mismatch
+        if: steps.run.outcome == 'failure'
+        run: exit 1
