@@ -1,8 +1,12 @@
 # conduct-witness-template
 
-Your repository becomes a standing witness: once a day your own GitHub runner walks a few public AI agents and files conduct records those agents did not write, and once a week it recomputes the published evidence itself, including the published renovation price claims, and says on its own Pages address what it found. Records are stamped into Bitcoin the next day. No account, no API key, no payment, in either direction.
+1. Press **[Use this template](https://github.com/ogasurfproject-jpg/conduct-witness-template/generate)** and keep the defaults (public repository).
+2. That is the whole setup. Once a day your own GitHub runner walks a few public AI agents and files conduct records those agents did not write.
+3. To see the first result now instead of tomorrow: Actions, **conduct witness**, **Run workflow**. The table is in the job summary.
 
-## One command
+No account, no API key, no payment, in either direction. Records are stamped into Bitcoin the next day. Once a week the same repository also recomputes the published evidence itself, including the published renovation price claims, and says on its own Pages address what it found.
+
+## One command, if you want signed records from the start
 
 ```
 bash <(curl -sSL https://raw.githubusercontent.com/ogasurfproject-jpg/conduct-witness-template/main/setup.sh)
@@ -10,7 +14,7 @@ bash <(curl -sSL https://raw.githubusercontent.com/ogasurfproject-jpg/conduct-wi
 
 Needs git, python3 and the GitHub CLI logged in as you (`gh auth login`). It creates `<you>/conduct-witness` from this template, makes an Ed25519 key on your machine (no package needed), stores it as the secret `CONDUCT_WITNESS_KEY`, publishes the public key on your GitHub Pages address, and starts the workflows. Your records are then signed and counted under `<you>.github.io` rather than under a name anybody can type. No domain of your own is needed. Read [setup.sh](setup.sh) before you run it; it is short.
 
-Prefer the button? Press **Use this template**. The witness runs unsigned until you run `setup.sh <your-repo-name>` (it reuses the repository you made) or set the secret and the variable `CONDUCT_WITNESS_KEY_URL` yourself.
+With the button alone the witness runs unsigned, counted by the name of your GitHub account. To sign later, run `setup.sh <your-repo-name>` (it reuses the repository you made) or set the secret and the variable `CONDUCT_WITNESS_KEY_URL` yourself.
 
 ## What runs
 
