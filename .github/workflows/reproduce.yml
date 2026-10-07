@@ -23,7 +23,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: ogasurfproject-jpg/horizon-shield
-          ref: d9b3075928ab0ef41f1a9b6b6970887c18b4fb44
+          ref: 2a590e58afb1b9b51c9077f826080368d4104551
           path: upstream
           sparse-checkout: |
             workers/hs-ledger/nenrin/a2a-python-e2e-v0
@@ -37,7 +37,7 @@ jobs:
           node-version: "22"
           package-manager-cache: false
       - name: install the published verifiers
-        run: python -m pip install --disable-pip-version-check "nenrin-verify==0.3.0" "a2a-sdk[http-server]==1.2.1" uvicorn
+        run: python -m pip install --disable-pip-version-check "nenrin-verify==0.4.8" "a2a-sdk[http-server]==1.2.1" uvicorn
       - name: recompute
         run: UPSTREAM=upstream OUT=receipt.json bash reproduce.sh
       - name: attest the receipt (GitHub signs it under this repository's identity)

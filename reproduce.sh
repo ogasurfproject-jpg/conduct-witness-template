@@ -3,7 +3,7 @@
 # or your runner, and write what you got to receipt.json. Nothing here trusts HORIZON SHIELD's servers: the
 # verifiers come from PyPI, the fixtures from a pinned git commit, and every result is recomputed here.
 #
-#   pip install "nenrin-verify==0.3.0" "a2a-sdk[http-server]==1.2.1" uvicorn     (and node 18+ on the PATH)
+#   pip install "nenrin-verify==0.4.8" "a2a-sdk[http-server]==1.2.1" uvicorn     (and node 18+ on the PATH)
 #   UPSTREAM=path/to/horizon-shield bash reproduce.sh
 set -uo pipefail
 UPSTREAM="${UPSTREAM:-upstream}"
